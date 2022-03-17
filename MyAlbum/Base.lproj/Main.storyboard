@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Vo-NV-HHX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Vo-NV-HHX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -73,6 +73,7 @@
                                             <outlet property="countLabel" destination="0hy-JM-2U2" id="uxq-BE-8OD"/>
                                             <outlet property="imageView" destination="mi4-lS-Ewn" id="GnC-XJ-FB0"/>
                                             <outlet property="nameLabel" destination="CIm-qv-A03" id="iMO-HP-WoP"/>
+                                            <segue destination="Heg-zu-4W0" kind="show" identifier="photos" id="69O-HL-1r3"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -99,20 +100,89 @@
             </objects>
             <point key="canvasLocation" x="955.07246376811599" y="69.642857142857139"/>
         </scene>
-        <!--View Controller-->
+        <!--사진들-->
         <scene sceneID="xji-QJ-7b7">
             <objects>
-                <viewController id="Heg-zu-4W0" sceneMemberID="viewController">
+                <viewController id="Heg-zu-4W0" customClass="PhotosViewController" customModule="MyAlbum" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xhH-E1-6H0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZf-oG-FOB">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="Jfp-vS-M94"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xi7-Eu-iGU"/>
+                                    <barButtonItem title="정렬" width="42" style="plain" id="DgI-ib-xVE"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="t4K-LU-qXr"/>
+                                    <barButtonItem systemItem="trash" id="tgI-Iz-YY1"/>
+                                </items>
+                            </toolbar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xwj-mx-Kgd">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="x4U-m7-TO0">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photosCell" id="PzX-fi-cKE" customClass="PhotosCollectionViewCell" customModule="MyAlbum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hsI-S1-H3o">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1z-98-huM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="J1z-98-huM" secondAttribute="bottom" id="DIi-ND-fX3"/>
+                                                <constraint firstItem="J1z-98-huM" firstAttribute="top" secondItem="hsI-S1-H3o" secondAttribute="top" id="JRV-xD-vBM"/>
+                                                <constraint firstItem="J1z-98-huM" firstAttribute="leading" secondItem="hsI-S1-H3o" secondAttribute="leading" id="L2d-cj-ZV3"/>
+                                                <constraint firstAttribute="trailing" secondItem="J1z-98-huM" secondAttribute="trailing" id="iRh-gS-rrZ"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageView" destination="J1z-98-huM" id="23T-qb-eYd"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Heg-zu-4W0" id="9hu-8v-M3O"/>
+                                    <outlet property="delegate" destination="Heg-zu-4W0" id="4ga-FL-l0b"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="pir-VS-mJn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="top" secondItem="pir-VS-mJn" secondAttribute="top" id="2dp-AS-gpA"/>
+                            <constraint firstItem="lZf-oG-FOB" firstAttribute="leading" secondItem="pir-VS-mJn" secondAttribute="leading" id="3gf-dq-eYG"/>
+                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="leading" secondItem="pir-VS-mJn" secondAttribute="leading" id="LXM-1w-08Y"/>
+                            <constraint firstItem="lZf-oG-FOB" firstAttribute="trailing" secondItem="pir-VS-mJn" secondAttribute="trailing" id="Od0-B5-XS1"/>
+                            <constraint firstItem="pir-VS-mJn" firstAttribute="trailing" secondItem="xwj-mx-Kgd" secondAttribute="trailing" id="UkX-HD-nZG"/>
+                            <constraint firstItem="lZf-oG-FOB" firstAttribute="top" secondItem="xwj-mx-Kgd" secondAttribute="bottom" id="Ycd-zw-ItQ"/>
+                            <constraint firstItem="lZf-oG-FOB" firstAttribute="bottom" secondItem="pir-VS-mJn" secondAttribute="bottom" id="uKO-sD-ikm"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="사진들" id="HCe-hF-4vk">
+                        <barButtonItem key="rightBarButtonItem" title="선택" id="t7v-0S-QoY"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="actionBarButtonItem" destination="Jfp-vS-M94" id="HJi-Xa-PRk"/>
+                        <outlet property="collectionView" destination="xwj-mx-Kgd" id="cwR-gL-6nL"/>
+                        <outlet property="selectionBarButtonItem" destination="t7v-0S-QoY" id="dAH-NV-DCQ"/>
+                        <outlet property="sortingBarButtonItem" destination="DgI-ib-xVE" id="Rd7-i0-9gl"/>
+                        <outlet property="trashBarButtonItem" destination="tgI-Iz-YY1" id="RtI-EP-86s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fJa-Rj-yla" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1706" y="70"/>
+            <point key="canvasLocation" x="1705.7971014492755" y="69.642857142857139"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ZWe-cK-JEQ">

@@ -143,6 +143,36 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
         }
         
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //사진을 눌렀을 때
+        if segue.identifier == "photos" {
+            
+            //띄어질 뷰 컨트롤러 불러오기
+            guard let nextView: PhotosViewController = segue.destination as? PhotosViewController else {
+                return
+            }
+            
+            //해당 셀 불러오기
+            guard let cell: AlbumCollectionViewCell = sender as? AlbumCollectionViewCell else {
+                return
+            }
+            
+            //해당 셀 index 불러오기
+            guard let index: IndexPath = self.collectionView.indexPath(for: cell) else {
+                return
+            }
+            
+            //선택된 앨범의 사진들을 다음 뷰컨트롤러에 넘겨줌.
+            nextView.pictures = userAsset[index.item]
+            nextView.albumName = albumName[index.item]
+            nextView.albumindex = index.item
+            print("선택된 앨범 index: \(index.item)")
+        }
+        
+    }
 
 
 }
