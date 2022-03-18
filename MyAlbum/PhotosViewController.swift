@@ -123,6 +123,7 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         }
     }
     
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("\(indexPath.item)번째 사진 해제됨")
         collectionView.cellForItem(at: indexPath)?.alpha = 1
@@ -144,14 +145,33 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     
     
     //MARK: 사진 삭제 구현
+    @IBAction func removePhotos(_ sender: Any){
+        
+        var assets = [PHAsset]()
+        
+        for index in indexListSelected {
+            
+            assets.append(self.pictures[index])
+        }
+            
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.deleteAssets(assets as NSFastEnumeration)
+        })
+        
+    }
+    
     //MARK: 사진 공유 구현
     //MARK: 사진 정렬 구현
     //MARK: 사진 클릭 세그 구현
+    //MARK: 라이브러리 상태 변경시.
+        //선택된 사진 초기화.
+        //라이브러리 다시 불러오기
     
 
-    /*
+    
     // MARK: - Navigation
 
+/*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.

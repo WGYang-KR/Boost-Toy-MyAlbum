@@ -115,7 +115,11 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xi7-Eu-iGU"/>
                                     <barButtonItem title="정렬" width="42" style="plain" id="DgI-ib-xVE"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="t4K-LU-qXr"/>
-                                    <barButtonItem systemItem="trash" id="tgI-Iz-YY1"/>
+                                    <barButtonItem systemItem="trash" id="tgI-Iz-YY1">
+                                        <connections>
+                                            <action selector="removePhotos:" destination="Heg-zu-4W0" id="ov7-oK-5RW"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xwj-mx-Kgd">
