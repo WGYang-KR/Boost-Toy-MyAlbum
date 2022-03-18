@@ -98,6 +98,7 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         self.navigationItem.hidesBackButton = false
         //콜렉션부 노말모드
         self.collectionView.allowsMultipleSelection = false
+        self.collectionView.allowsSelection = false
         //선택값 저장 배열 초기화
         print("\(indexListSelected): 초기화 예정 배열")
         self.indexListSelected = [Int]()
