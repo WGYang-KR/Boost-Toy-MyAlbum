@@ -113,7 +113,11 @@
                                 <items>
                                     <barButtonItem systemItem="action" id="Jfp-vS-M94"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xi7-Eu-iGU"/>
-                                    <barButtonItem title="정렬" width="42" style="plain" id="DgI-ib-xVE"/>
+                                    <barButtonItem title="정렬" width="42" style="plain" id="DgI-ib-xVE">
+                                        <connections>
+                                            <action selector="pushSortBtn:" destination="Heg-zu-4W0" id="0Fr-Co-w9e"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="t4K-LU-qXr"/>
                                     <barButtonItem systemItem="trash" id="tgI-Iz-YY1">
                                         <connections>

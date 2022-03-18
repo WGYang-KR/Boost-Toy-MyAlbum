@@ -71,6 +71,9 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         
         //PHPhotoLibraryChangeObserver 등록.
         PHPhotoLibrary.shared().register(self)
+        
+        //정렬 title 설정
+        self.sortingBarButtonItem.title = "최신순"
     }
     
     //MARK: 셀 다중선택 구현
@@ -166,7 +169,70 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     
     //MARK: 사진 공유 구현
     //MARK: 사진 정렬 구현
+    
+    @IBAction func pushSortBtn(_ sender: UIBarButtonItem) {
+    
+        switch sender.title {
+        case "최신순":
+            changeSort(sortType: "과거순")
+            sender.title = "과거순"
+        case "과거순":
+            changeSort(sortType: "최신순")
+            sender.title = "최신순"
+        default:
+            print("현재 정렬을 매칭할 수 없어, 기존 정렬을 유지 합니다.")
+        }
+    }
+    
+    func changeSort(sortType: String) {
+        let fetchOptions = PHFetchOptions()
+        
+        switch sortType {
+        case "최신순":
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        case "과거순":
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        default:
+            print("오류: 사진 정렬 기준 없음")
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+
+        }
+        
+        if albumName == "Camera Roll" {
+            let cameraRollFetch: PHFetchResult<PHAssetCollection> =
+            PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.smartAlbumUserLibrary, options: nil)
+            
+            guard let cameraRollAssetCollection = cameraRollFetch.firstObject else {
+                print("전체 사진 로딩 오류")
+                fatalError()
+            }
+            
+            self.pictures = PHAsset.fetchAssets(in: cameraRollAssetCollection, options: fetchOptions)
+            
+         
+        } else {
+            let albumListFetchOptions = PHFetchOptions()
+            albumListFetchOptions.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+            
+            let userAlbumsFetch: PHFetchResult<PHAssetCollection>
+            = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.any, options: albumListFetchOptions)
+            
+            //카메라롤 제외 되어있으므로 albumindex - 1
+            let userAlbumCollection = userAlbumsFetch.object(at: albumindex - 1 )
+    
+            
+            self.pictures = PHAsset.fetchKeyAssets(in: userAlbumCollection, options: fetchOptions)
+            
+        }
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
+        }
+        
+        
+    }
+    
     //MARK: 사진 클릭 세그 구현
+    
     //MARK: 라이브러리 상태 변경시.
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
