@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Photos
 
 class DetailViewController: UIViewController {
 
+    //이전 뷰컨트롤러에서 등록해줄 변수
+    var photoAsset: PHAsset!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

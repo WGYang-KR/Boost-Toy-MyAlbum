@@ -168,8 +168,9 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     }
     
     //MARK: 사진 공유 구현
-    //MARK: 사진 정렬 구현
     
+    
+    //MARK: 사진 정렬 구현
     @IBAction func pushSortBtn(_ sender: UIBarButtonItem) {
     
         switch sender.title {
