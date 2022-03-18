@@ -8,7 +8,8 @@
 import UIKit
 import Photos
 
-class PhotosViewController: UIViewController, UICollectionViewDataSource , UICollectionViewDelegate{
+class PhotosViewController: UIViewController, UICollectionViewDataSource , UICollectionViewDelegate, PHPhotoLibraryChangeObserver{
+    
    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var selectionBarButtonItem: UIBarButtonItem!
@@ -68,6 +69,8 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         //MARK: '선택'버튼 초기화
         self.setNormalMode(selectionBarButtonItem)
         
+        //PHPhotoLibraryChangeObserver 등록.
+        PHPhotoLibrary.shared().register(self)
     }
     
     //MARK: 셀 다중선택 구현
@@ -164,8 +167,24 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     //MARK: 사진 정렬 구현
     //MARK: 사진 클릭 세그 구현
     //MARK: 라이브러리 상태 변경시.
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        //해당 asset의 변경된 정보 불러오기
+        guard let asset = pictures, let changes = changeInstance.changeDetails(for: asset) else {
+            return
+        }
         //선택된 사진 초기화.
-        //라이브러리 다시 불러오기
+        indexListSelected = [Int]()
+        //변경된 fetchresult 불러오기
+        pictures = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
+        }
+        
+    }
+    
+        
     
 
     
