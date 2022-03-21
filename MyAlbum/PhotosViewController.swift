@@ -8,11 +8,8 @@
 import UIKit
 import Photos
 
-class PhotosViewController: UIViewController, UICollectionViewDataSource , UICollectionViewDelegate, PHPhotoLibraryChangeObserver{
+class PhotosViewController: UIViewController, UICollectionViewDataSource , UICollectionViewDelegate, PHPhotoLibraryChangeObserver {
 
-    
-    
-   
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var selectionBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var actionBarButtonItem: UIBarButtonItem!
@@ -173,6 +170,7 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     }
     
     //MARK: 사진 공유 구현
+   
     @IBAction func sharePhotos(_ sender: Any) {
         var photosToShare = [UIImage]()
         //이미지 화질 설정
@@ -188,7 +186,8 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
                                       resultHandler: { img, _ in
                 if let image = img { photosToShare.append( image ) } })
         }
-        
+    
+
         let activityViewController = UIActivityViewController(activityItems: photosToShare, applicationActivities: nil)
         
         print("activity 실행")
