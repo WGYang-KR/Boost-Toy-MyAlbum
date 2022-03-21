@@ -71,6 +71,9 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func requestCollection() {
+        
+    OperationQueue().addOperation {
+        
         let fetchOptions = PHFetchOptions()
         
         //최신순 정렬
@@ -78,6 +81,7 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
         
         let listfet = PHFetchOptions()
         listfet.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+        
         //MARK: - 전체앨범
         //camera Roll 목록
         let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
@@ -86,10 +90,11 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
             print("전체 앨범 조회 실패")
             return
         }
-        
-        userAsset.append(PHAsset.fetchAssets(in:cameraRollCollection, options: fetchOptions))
-        albumName.append("Camera Roll")
-        assetCount.append(userAsset[0].count)
+            
+        self.userAsset.append(PHAsset.fetchAssets(in:cameraRollCollection, options: fetchOptions))
+        self.albumName.append("Camera Roll")
+        self.assetCount.append(self.userAsset[0].count)
+        print("Camera Roll의 사진 개수 \(self.userAsset[0].count)")
         
         //MARK: - 앨범리스트
         //앨범 리스트 받기
@@ -102,13 +107,20 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
         //var userAsset = [PHFetchResult<PHAsset>]() 앨범별로 분류해서 사진저장
         //userAsset 인덱스 0에는 카메라롤 저장되었음.
         for i in 0..<albumCount {
-            userAsset.append(PHAsset.fetchAssets(in: userAlbum[i], options: fetchOptions)) //앨범마다 사진저장
-            print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진 개수 \(userAsset[i+1].count)")
-            assetCount.append(userAsset[i+1].count)
-            albumName.append(userAlbum[i].localizedTitle!)
+            self.userAsset.append(PHAsset.fetchAssets(in: userAlbum[i], options: fetchOptions)) //앨범마다 사진저장
+            print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진 개수 \(self.userAsset[i+1].count)")
+            self.assetCount.append(self.userAsset[i+1].count)
+            self.albumName.append(userAlbum[i].localizedTitle!)
         }
         
-    }
+        
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
+        
+        }
+    
+    } // ./OperationQueue()
+    } // ./requestCollection()
     
     
     override func viewDidLoad() {
