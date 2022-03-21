@@ -9,6 +9,8 @@ import UIKit
 import Photos
 
 class PhotosViewController: UIViewController, UICollectionViewDataSource , UICollectionViewDelegate, PHPhotoLibraryChangeObserver{
+
+    
     
    
     @IBOutlet weak var collectionView: UICollectionView!
@@ -42,7 +44,10 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         }
         
         //image manager로 image 불러오기.
-        imageManager.requestImage(for: pictures[indexPath.item], targetSize: CGSize(width: cellWidth, height: cellWidth), contentMode: PHImageContentMode.aspectFill , options: nil, resultHandler: {img, _ in cell.imageView?.image = img })
+        imageManager.requestImage(for: pictures[indexPath.item],
+                                  targetSize: CGSize(width: cellWidth, height: cellWidth),
+                                  contentMode: PHImageContentMode.aspectFill , options: nil,
+                                  resultHandler: {img, _ in cell.imageView?.image = img })
         
         return cell
   
@@ -168,7 +173,28 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     }
     
     //MARK: 사진 공유 구현
-    
+    @IBAction func sharePhotos(_ sender: Any) {
+        var photosToShare = [UIImage]()
+        //이미지 화질 설정
+        let phImageRequestOptions = PHImageRequestOptions()
+        phImageRequestOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
+        
+        //이미지 매니저 통해 선택된 이미지들 이미지배열에 저장.
+        for index in indexListSelected {
+            imageManager.requestImage(for: pictures[index],
+                                      targetSize: PHImageManagerMaximumSize,
+                                      contentMode: .default,
+                                      options: phImageRequestOptions,
+                                      resultHandler: { img, _ in
+                if let image = img { photosToShare.append( image ) } })
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: photosToShare, applicationActivities: nil)
+        
+        print("activity 실행")
+        self.present(activityViewController, animated: true, completion: nil)
+        
+    }
     
     //MARK: 사진 정렬 구현
     @IBAction func pushSortBtn(_ sender: UIBarButtonItem) {
@@ -265,5 +291,5 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
