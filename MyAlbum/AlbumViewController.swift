@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 
+
 class AlbumViewController: UIViewController, UICollectionViewDataSource {
     
     
@@ -25,6 +26,16 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
     
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
+  
+    
+    // MARK: 빈 이미지 생성 함수
+    func emptyImage(with size: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContext(CGSize(width: size, height: size))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
     //cell 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -35,15 +46,21 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
         
         //MARK: - 앨범리스트별 셀만들기
         //let asset: PHAsset = fetchResult.object(at: indexPath.item)
-        
+   
         //앨범별 처음사진 할당
-        let img: PHAsset = userAsset[indexPath.item].object(at:0)
+        if(userAsset[indexPath.item].count != 0) {
+            let img: PHAsset = userAsset[indexPath.item].object(at:0)
+            imageManager.requestImage(for: img, targetSize: CGSize(width: half, height: half), contentMode: .aspectFill, options: nil, resultHandler: {img, _ in cell.imageView?.image = img })
+            
+        } else {
+            let img = emptyImage(with: 100)
+            cell.imageView?.image = img
+        }
         
         cell.nameLabel.text = albumName[indexPath.item]
         cell.countLabel.text = "\(assetCount[indexPath.item])"
     
-        imageManager.requestImage(for: img, targetSize: CGSize(width: half, height: half), contentMode: .aspectFill, options: nil, resultHandler: {img, _ in cell.imageView?.image = img })
-        
+ 
         return cell
     }
     
