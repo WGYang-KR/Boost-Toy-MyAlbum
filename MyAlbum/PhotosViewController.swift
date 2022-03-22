@@ -21,6 +21,8 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     var albumName: String!
     var albumindex: Int!
     
+    var isSelectMode: Bool = false
+    
     //PHAsset에서 image를 꺼내려면 사용해야함. 썸네일 생성에 특화된 image manager
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
@@ -81,7 +83,17 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     //MARK: 셀 다중선택 구현
     var indexListSelected = [Int]() //선택된 사진 index 저장.
     
+    //선택모드일 때 세그 실행 안되도록 설정
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if(self.isSelectMode) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     @objc func setSelectMode(_ sender: UIBarButtonItem) {
+        self.isSelectMode = true
         sender.title = "해제"
         sender.target = self
         sender.action = #selector(setNormalMode(_:))
@@ -90,9 +102,12 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         self.navigationItem.hidesBackButton = true
         //콜렉션뷰 선택모드
         self.collectionView.allowsMultipleSelection = true
+        //선택값 초기화
+        self.collectionView.reloadData()
     }
     
     @objc func setNormalMode(_ sender: UIBarButtonItem) {
+        self.isSelectMode = false
         sender.title = "선택"
         sender.target = self
         sender.action = #selector(setSelectMode(_:))
@@ -103,7 +118,8 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
         self.navigationItem.hidesBackButton = false
         //콜렉션부 노말모드
         self.collectionView.allowsMultipleSelection = false
-        self.collectionView.allowsSelection = false
+//        self.collectionView.allowsSelection = false
+
         //선택값 저장 배열 초기화
         print("\(indexListSelected): 초기화 예정 배열")
         self.indexListSelected = [Int]()
@@ -114,42 +130,48 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item)번째 사진 선택됨")
-        //셀 불투명으로 바꾸기
-        collectionView.cellForItem(at: indexPath)?.alpha = 0.5
         
-        //중복선택이 아니면 리스트에 추가
-        if(!indexListSelected.contains(indexPath.item)) {
-            indexListSelected.append(indexPath.item)
-        }
-        
-        //리스트 비어있는 지 확인해서 툴바 활성화
-        if(!indexListSelected.isEmpty) {
-            self.actionBarButtonItem.isEnabled = true
-            self.trashBarButtonItem.isEnabled = true
+        if(isSelectMode) {
+            //셀 불투명으로 바꾸기
+            collectionView.cellForItem(at: indexPath)?.alpha = 0.5
+            
+            //중복선택이 아니면 리스트에 추가
+            if(!indexListSelected.contains(indexPath.item)) {
+                indexListSelected.append(indexPath.item)
+            }
+            
+            //리스트 비어있는 지 확인해서 툴바 활성화
+            if(!indexListSelected.isEmpty) {
+                self.actionBarButtonItem.isEnabled = true
+                self.trashBarButtonItem.isEnabled = true
+            } else {
+                    self.actionBarButtonItem.isEnabled = false
+                    self.trashBarButtonItem.isEnabled = false
+            }
         } else {
-                self.actionBarButtonItem.isEnabled = false
-                self.trashBarButtonItem.isEnabled = false
+  
         }
     }
     
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("\(indexPath.item)번째 사진 해제됨")
-        collectionView.cellForItem(at: indexPath)?.alpha = 1
-        
-        //해당 인덱스 리스트에서 찾아서 삭제.
-        let index: Int! = indexListSelected.firstIndex(of: indexPath.item)
-        indexListSelected.remove(at: index)
-       
-        //리스트 비어있는 지 확인해서 툴바 활성화
-        if(!indexListSelected.isEmpty) {
-            self.actionBarButtonItem.isEnabled = true
-            self.trashBarButtonItem.isEnabled = true
-        } else {
-                self.actionBarButtonItem.isEnabled = false
-                self.trashBarButtonItem.isEnabled = false
+        if(isSelectMode) {
+            print("\(indexPath.item)번째 사진 해제됨")
+            collectionView.cellForItem(at: indexPath)?.alpha = 1
+            
+            //해당 인덱스 리스트에서 찾아서 삭제.
+            let index: Int! = indexListSelected.firstIndex(of: indexPath.item)
+            indexListSelected.remove(at: index)
+           
+            //리스트 비어있는 지 확인해서 툴바 활성화
+            if(!indexListSelected.isEmpty) {
+                self.actionBarButtonItem.isEnabled = true
+                self.trashBarButtonItem.isEnabled = true
+            } else {
+                    self.actionBarButtonItem.isEnabled = false
+                    self.trashBarButtonItem.isEnabled = false
+            }
         }
-        
     }
     
     
@@ -283,12 +305,34 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource , UICol
     
     // MARK: - Navigation
 
-/*
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if(segue.identifier == "detail") {
+            //띄어질 뷰컨트롤러 불러오기
+            guard let nextVC: DetailViewController = segue.destination as? DetailViewController else{
+                return
+            }
+            
+            //클릭한 셀 불러오기
+            guard let cell: PhotosCollectionViewCell = sender as? PhotosCollectionViewCell else {
+                return
+            }
+            
+            //클릭한 셀 인덱스 불러오기
+            guard let index: IndexPath = self.collectionView.indexPath(for: cell) else {
+                return
+            }
+            
+            //다음 뷰에 에셋 넘기기
+            nextVC.photoAsset = pictures[index.item]
+            print(pictures[index.item])
+        }
+
     }
-    */
+    
     
 }

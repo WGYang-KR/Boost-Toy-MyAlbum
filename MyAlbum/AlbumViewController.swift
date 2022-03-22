@@ -72,7 +72,7 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
     
     func requestCollection() {
         
-    OperationQueue().addOperation {
+
         
         let fetchOptions = PHFetchOptions()
         
@@ -119,7 +119,6 @@ class AlbumViewController: UIViewController, UICollectionViewDataSource {
         
         }
     
-    } // ./OperationQueue()
     } // ./requestCollection()
     
     
