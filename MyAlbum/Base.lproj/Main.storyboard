@@ -201,12 +201,16 @@
         <scene sceneID="ZWe-cK-JEQ">
             <objects>
                 <viewController id="6lh-PF-nO3" customClass="DetailViewController" customModule="MyAlbum" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZEE-C9-4QS" customClass="DetailCollectionViewCell" customModule="MyAlbum" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="ZEE-C9-4QS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1T-4s-5pH">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49" id="3Xt-rJ-cMb"/>
+                                    <constraint firstAttribute="height" constant="49" id="S0R-e7-jrY"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem systemItem="action" id="Rsv-xG-laA"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="w8a-Wo-Wv5"/>
@@ -215,31 +219,49 @@
                                     <barButtonItem systemItem="trash" id="t9q-3m-x5K"/>
                                 </items>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-yV-fYC">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="htr-V2-r8V">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a8I-0d-foL">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="a8I-0d-foL" secondAttribute="bottom" id="4q4-Yr-Jwt"/>
+                                    <constraint firstItem="a8I-0d-foL" firstAttribute="height" secondItem="htr-V2-r8V" secondAttribute="height" id="9bP-nQ-27F"/>
+                                    <constraint firstItem="a8I-0d-foL" firstAttribute="leading" secondItem="htr-V2-r8V" secondAttribute="leading" id="b8M-RT-CaR"/>
+                                    <constraint firstAttribute="trailing" secondItem="a8I-0d-foL" secondAttribute="trailing" id="d9h-Gl-0wW"/>
+                                    <constraint firstItem="a8I-0d-foL" firstAttribute="top" secondItem="htr-V2-r8V" secondAttribute="top" id="iSI-Sj-Ddw"/>
+                                    <constraint firstItem="a8I-0d-foL" firstAttribute="width" secondItem="htr-V2-r8V" secondAttribute="width" id="mSD-p0-56L"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="g7W-gJ-dLn"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Err-dq-oUQ"/>
+                                <connections>
+                                    <outlet property="delegate" destination="6lh-PF-nO3" id="y0g-ZF-fTM"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Aj-li-9ct"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fHU-yV-fYC" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="3vo-0W-AIJ"/>
-                            <constraint firstItem="7Aj-li-9ct" firstAttribute="trailing" secondItem="fHU-yV-fYC" secondAttribute="trailing" id="8xX-4D-gnv"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="AeP-Iu-saS"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="top" secondItem="fHU-yV-fYC" secondAttribute="bottom" id="mvt-a8-u3N"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="bottom" secondItem="7Aj-li-9ct" secondAttribute="bottom" id="p1o-X9-xVy"/>
-                            <constraint firstItem="fHU-yV-fYC" firstAttribute="top" secondItem="7Aj-li-9ct" secondAttribute="top" id="pTj-BM-PdQ"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="trailing" secondItem="7Aj-li-9ct" secondAttribute="trailing" id="rmz-x7-884"/>
+                            <constraint firstItem="t1T-4s-5pH" firstAttribute="trailing" secondItem="7Aj-li-9ct" secondAttribute="trailing" id="6Sd-jS-Tw2"/>
+                            <constraint firstItem="htr-V2-r8V" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="Akz-jm-Xa1"/>
+                            <constraint firstItem="t1T-4s-5pH" firstAttribute="top" secondItem="htr-V2-r8V" secondAttribute="bottom" id="V1k-KE-LWB"/>
+                            <constraint firstItem="7Aj-li-9ct" firstAttribute="trailing" secondItem="htr-V2-r8V" secondAttribute="trailing" id="Zwb-oH-gMQ"/>
+                            <constraint firstItem="htr-V2-r8V" firstAttribute="top" secondItem="7Aj-li-9ct" secondAttribute="top" id="bHB-9m-AW2"/>
+                            <constraint firstItem="t1T-4s-5pH" firstAttribute="bottom" secondItem="7Aj-li-9ct" secondAttribute="bottom" id="cdZ-wI-hgV"/>
+                            <constraint firstItem="t1T-4s-5pH" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="lq7-Cr-QIy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="사진상세" id="s1Q-YX-MJd"/>
                     <connections>
                         <outlet property="heartBarButtonItem" destination="7CO-Oj-9nC" id="TAY-ru-ZvD"/>
-                        <outlet property="imageView" destination="fHU-yV-fYC" id="apv-wg-Pkh"/>
+                        <outlet property="imageView" destination="a8I-0d-foL" id="eK0-it-Imb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXJ-MU-0Wj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="70"/>
+            <point key="canvasLocation" x="2450.7246376811595" y="69.642857142857139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6g-YY-TKx">

@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UIScrollViewDelegate {
 
     //이전 뷰컨트롤러에서 등록해줄 변수
     var photoAsset: PHAsset!
@@ -19,6 +19,9 @@ class DetailViewController: UIViewController {
     //에셋에서 이미지 생성할 imageManager
     let imageManager : PHImageManager = PHImageManager()
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
