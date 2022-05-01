@@ -19,9 +19,20 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     //에셋에서 이미지 생성할 imageManager
     let imageManager : PHImageManager = PHImageManager()
     
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
+    
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        
+        //네비게이션바, 툴바 가리기
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+    }
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,7 +40,13 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         
       imageManager.requestImage(for: photoAsset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.default, options: nil, resultHandler: {img, _ in self.imageView.image = img})
  
+        self.navigationController?.hidesBarsOnTap = true
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.hidesBarsOnTap = false
     }
     
 

@@ -85,13 +85,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4wz-ry-JYF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yNa-CJ-0vd" secondAttribute="bottom" id="Y8j-Yz-jUK"/>
-                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jaf-R2-2G1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yNa-CJ-0vd" secondAttribute="trailing" id="vSn-N9-GYM"/>
+                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8i2-A2-GuC"/>
+                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="G6G-V7-GQQ"/>
+                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bvJ-Qo-GXy"/>
+                            <constraint firstItem="yNa-CJ-0vd" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="wkX-Ar-tu2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="앨범" id="kxC-nH-sxC"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="yNa-CJ-0vd" id="p3c-89-Lia"/>
                     </connections>
@@ -108,28 +109,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZf-oG-FOB">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <items>
-                                    <barButtonItem systemItem="action" id="Jfp-vS-M94">
-                                        <connections>
-                                            <action selector="sharePhotos:" destination="Heg-zu-4W0" id="3Gb-Fp-l4m"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xi7-Eu-iGU"/>
-                                    <barButtonItem title="정렬" width="42" style="plain" id="DgI-ib-xVE">
-                                        <connections>
-                                            <action selector="pushSortBtn:" destination="Heg-zu-4W0" id="0Fr-Co-w9e"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="t4K-LU-qXr"/>
-                                    <barButtonItem systemItem="trash" id="tgI-Iz-YY1">
-                                        <connections>
-                                            <action selector="removePhotos:" destination="Heg-zu-4W0" id="ov7-oK-5RW"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xwj-mx-Kgd">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -173,18 +152,35 @@
                         <viewLayoutGuide key="safeArea" id="pir-VS-mJn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="top" secondItem="pir-VS-mJn" secondAttribute="top" id="2dp-AS-gpA"/>
-                            <constraint firstItem="lZf-oG-FOB" firstAttribute="leading" secondItem="pir-VS-mJn" secondAttribute="leading" id="3gf-dq-eYG"/>
-                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="leading" secondItem="pir-VS-mJn" secondAttribute="leading" id="LXM-1w-08Y"/>
-                            <constraint firstItem="lZf-oG-FOB" firstAttribute="trailing" secondItem="pir-VS-mJn" secondAttribute="trailing" id="Od0-B5-XS1"/>
-                            <constraint firstItem="pir-VS-mJn" firstAttribute="trailing" secondItem="xwj-mx-Kgd" secondAttribute="trailing" id="UkX-HD-nZG"/>
-                            <constraint firstItem="lZf-oG-FOB" firstAttribute="top" secondItem="xwj-mx-Kgd" secondAttribute="bottom" id="Ycd-zw-ItQ"/>
-                            <constraint firstItem="lZf-oG-FOB" firstAttribute="bottom" secondItem="pir-VS-mJn" secondAttribute="bottom" id="uKO-sD-ikm"/>
+                            <constraint firstItem="pir-VS-mJn" firstAttribute="bottom" secondItem="xwj-mx-Kgd" secondAttribute="bottom" id="3Ux-Pz-w9k"/>
+                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="trailing" secondItem="pir-VS-mJn" secondAttribute="trailing" id="684-yN-R3g"/>
+                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="leading" secondItem="pir-VS-mJn" secondAttribute="leading" id="SvA-f4-DDF"/>
+                            <constraint firstItem="xwj-mx-Kgd" firstAttribute="top" secondItem="pir-VS-mJn" secondAttribute="top" id="wTx-Wf-sDH"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="Jfp-vS-M94">
+                            <connections>
+                                <action selector="sharePhotos:" destination="Heg-zu-4W0" id="3Gb-Fp-l4m"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xi7-Eu-iGU"/>
+                        <barButtonItem title="정렬" style="plain" id="DgI-ib-xVE">
+                            <connections>
+                                <action selector="pushSortBtn:" destination="Heg-zu-4W0" id="0Fr-Co-w9e"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="t4K-LU-qXr"/>
+                        <barButtonItem systemItem="trash" id="tgI-Iz-YY1">
+                            <connections>
+                                <action selector="removePhotos:" destination="Heg-zu-4W0" id="ov7-oK-5RW"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="사진들" id="HCe-hF-4vk">
                         <barButtonItem key="rightBarButtonItem" title="선택" id="t7v-0S-QoY"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="actionBarButtonItem" destination="Jfp-vS-M94" id="HJi-Xa-PRk"/>
                         <outlet property="collectionView" destination="xwj-mx-Kgd" id="cwR-gL-6nL"/>
@@ -205,20 +201,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1T-4s-5pH">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49" id="3Xt-rJ-cMb"/>
-                                    <constraint firstAttribute="height" constant="49" id="S0R-e7-jrY"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem systemItem="action" id="Rsv-xG-laA"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="w8a-Wo-Wv5"/>
-                                    <barButtonItem title="♡" id="7CO-Oj-9nC"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="USm-Yi-Y45"/>
-                                    <barButtonItem systemItem="trash" id="t9q-3m-x5K"/>
-                                </items>
-                            </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="htr-V2-r8V">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -244,16 +226,21 @@
                         <viewLayoutGuide key="safeArea" id="7Aj-li-9ct"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="trailing" secondItem="7Aj-li-9ct" secondAttribute="trailing" id="6Sd-jS-Tw2"/>
-                            <constraint firstItem="htr-V2-r8V" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="Akz-jm-Xa1"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="top" secondItem="htr-V2-r8V" secondAttribute="bottom" id="V1k-KE-LWB"/>
-                            <constraint firstItem="7Aj-li-9ct" firstAttribute="trailing" secondItem="htr-V2-r8V" secondAttribute="trailing" id="Zwb-oH-gMQ"/>
-                            <constraint firstItem="htr-V2-r8V" firstAttribute="top" secondItem="7Aj-li-9ct" secondAttribute="top" id="bHB-9m-AW2"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="bottom" secondItem="7Aj-li-9ct" secondAttribute="bottom" id="cdZ-wI-hgV"/>
-                            <constraint firstItem="t1T-4s-5pH" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="lq7-Cr-QIy"/>
+                            <constraint firstItem="7Aj-li-9ct" firstAttribute="bottom" secondItem="htr-V2-r8V" secondAttribute="bottom" id="KSV-8S-gPT"/>
+                            <constraint firstItem="htr-V2-r8V" firstAttribute="trailing" secondItem="7Aj-li-9ct" secondAttribute="trailing" id="OWw-VY-cIt"/>
+                            <constraint firstItem="htr-V2-r8V" firstAttribute="leading" secondItem="7Aj-li-9ct" secondAttribute="leading" id="Uri-rS-QZJ"/>
+                            <constraint firstItem="htr-V2-r8V" firstAttribute="top" secondItem="7Aj-li-9ct" secondAttribute="top" id="ach-jI-zHW"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="Rsv-xG-laA"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="w8a-Wo-Wv5"/>
+                        <barButtonItem title="♡" id="7CO-Oj-9nC"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="USm-Yi-Y45"/>
+                        <barButtonItem systemItem="trash" id="t9q-3m-x5K"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="사진상세" id="s1Q-YX-MJd"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="heartBarButtonItem" destination="7CO-Oj-9nC" id="TAY-ru-ZvD"/>
                         <outlet property="imageView" destination="a8I-0d-foL" id="eK0-it-Imb"/>
@@ -266,13 +253,17 @@
         <!--Navigation Controller-->
         <scene sceneID="W6g-YY-TKx">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Vo-NV-HHX" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="8Vo-NV-HHX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fsV-NM-wKg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ppi-6B-Iy1">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="22U-L1-U79"/>
                     </connections>
